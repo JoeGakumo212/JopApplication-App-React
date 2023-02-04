@@ -1,5 +1,15 @@
+import { Fragment } from 'react'
 import '../styles/globals.css'
+import Header from '../componets/header';
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+
+
+function App({ Component, pageProps }) {
+  return (
+    <Fragment>
+      <Header />
+      <Component {...pageProps} />
+    </Fragment>
+  );
 }
+export default App;

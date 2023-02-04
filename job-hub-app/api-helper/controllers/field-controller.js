@@ -115,3 +115,18 @@ export const deleteApplication = async (req, res) => {
         return res.status(500).json({ message: "Unable to Delete Application" });
     } return res.status(200).json({ message: "Application Deleted Successfully" });
 };
+// creating job/seacrhing job
+export const getJobForApplication = async (req, res) => {
+    const id = req.query.id;
+
+    let field;
+    try {
+        field = await Field.findById(id);
+    } catch (err) {
+        return new Error(err)
+    }
+    if (!field) {
+        return res.status(404).json({ message: "No Such Job Found" })
+    }
+    return res.status(200).json({ field });
+};
