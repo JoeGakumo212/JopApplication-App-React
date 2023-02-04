@@ -22,3 +22,37 @@ export const getAllFields = async (req, res) => {
 };
 
 // function for posting data in the database
+
+export const addApplicantField = async (req, res) => {
+    const { name, email, phoneNumber, resume, coverLetter, desiredPosition, skills, availability, additionalInformation } = req.body;
+    
+    if (
+        !name && name.trim() === "" &&
+        !email && email.trim() === "" &&
+        !phoneNumber && phoneNumber.trim() === "" &&
+        !resume && resume.trim() === "" &&
+        !coverLetter && coverLetter.trim() === "" &&
+        !desiredPosition && desiredPosition.trim() === "" &&
+        !skills && skills.trim() === "" &&
+        !availability && availability.trim() === "" &&
+        !additionalInformation && additionalInformation.trim() === "")
+        return res.status(422).json({ message: "Invalid Inputs" });
+    
+    let field;
+    
+
+    try {
+        field = new Field({ name, email, phoneNumber, resume, coverLetter, desiredPosition, skills, availability, additionalInformation })
+        field = await field.save();
+    }
+    catch (err) {
+        return new Error(err);
+        
+    }
+
+    if (!field) {
+        return res.status(500).json({ messgae: "Internal Server Error" });
+    }
+    return res.status(201).json({ field });
+    
+};
