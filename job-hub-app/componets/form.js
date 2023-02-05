@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 
 
 const labelSx ={ marginTop:"10px"}
-const form = (data, onSubmit) => {
+const form = ({ data, onSubmit }) => {
     
-    const [Inputs, setInputs] = useState(
+    const [inputs, setInputs] = useState(
         data ? {
             name: data.name,
             email: data.email,
@@ -19,12 +19,32 @@ const form = (data, onSubmit) => {
             additionalInformation:data.additionalInformation,
         } : {
                 name: '',
-            emai:"",
+                emai: "",
+                phoneNumber: "",
+                resume: "",
+                coverLetter: "",
+                desiredPosition: "",
+                skills: "",
+                availability:"",
                 additionalInformation: "",
             
         }
     );
-    return <form
+
+
+    const handleChange = (e) => {
+        setInputs((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+       
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();        
+        onSubmit(inputs);
+    };
+    return(
+    <form onSubmit={handleSubmit}
         style={{
             width: "50%", height: "30%", margin: "auto", boxShadow:"15px 15px 30px #ccc", borderRadius:"20px"
         }}>
@@ -39,6 +59,8 @@ const form = (data, onSubmit) => {
                   name="name"
                 autoComplete="Full Name"
                 margin="normal"
+                onChange={handleChange}
+                value={inputs.name}
                 />
             <FormLabel sx={labelSx} >Email Address:</FormLabel>
             <TextField
@@ -49,6 +71,8 @@ const form = (data, onSubmit) => {
                   name="email"
                 autoComplete="email"
                 margin="normal"
+                onChange={handleChange}
+                value={inputs.email}
                 />
             <FormLabel sx={labelSx} >phoneNumber:</FormLabel>
             <TextField
@@ -58,6 +82,8 @@ const form = (data, onSubmit) => {
                   label="Phone NUmber"
                 name="phoneNumber"
                 margin="normal"
+                onChange={handleChange}
+                value={inputs.phoneNumber}
                 />
             <FormLabel sx={labelSx} >Resume:</FormLabel>
             <TextField
@@ -66,7 +92,9 @@ const form = (data, onSubmit) => {
              id="Resume"
              label="Resume"
                 name="resume"
-                margin="normal"/>
+                margin="normal"
+                onChange={handleChange}
+                value={inputs.resume}/>
             <FormControl margin='20px'>
             <FormLabel  sx={labelSx} >cover Letter:</FormLabel>
             <TextField
@@ -78,10 +106,16 @@ const form = (data, onSubmit) => {
                     autoComplete="Upload File"
                     type="file"
                     margin="normal"
+                    onChange={handleChange}
+                     value={inputs.coverLetter}
                 />
             </FormControl>
             <FormControl sx={labelSx} >
-                <TextField label="Desired Position" name="desiredPosition" select>
+                <TextField
+                    label="Desired Position"
+                    name="desiredPosition"
+                    onChange={handleChange}
+                value={inputs.desiredPosition} select>
                     <MenuItem value="Assistance IT personel">Assistance IT personel</MenuItem>
                     <MenuItem value="Technical Assistance">Technical Assistance</MenuItem>
                     <MenuItem value="Senior Software Developer ">Senior Software Developer </MenuItem>
@@ -90,7 +124,12 @@ const form = (data, onSubmit) => {
             </FormControl>
             
             <FormControl sx={labelSx} >
-                <FormLabel id="Skills" name="skills">Skills</FormLabel >
+                <FormLabel
+                    id="Skills"
+                    name="skills"
+                    onChange={handleChange}
+                    value={inputs.skills}
+                >Skills</FormLabel >
                 <FormControlLabel label='Software Engineering ' control={<Checkbox />} />
                 <FormControlLabel label='Software Programmer ' control={<Checkbox />} />
                 <FormControlLabel label='Backend Developer ' control={<Checkbox />} />
@@ -98,7 +137,12 @@ const form = (data, onSubmit) => {
                 <FormControlLabel label='Front/Back-end Developer ' control={<Checkbox />} />
             </FormControl>
             <FormControl>
-                <FormLabel id="skills-experience" name="availability">Availability:</FormLabel>
+                <FormLabel
+                    id="skills-experience"
+                    name="availability"
+                    onChange={handleChange}
+                value={inputs.availability}
+                >Availability:</FormLabel>
                 <RadioGroup name="skills-experience-group" arial-labelledby='skills-experince-group-label'>
                     <FormControlLabel control={<Radio />} label='1 Week' value='1 Week' />
                     <FormControlLabel control={<Radio />} label='2 Week' value='2 Weeks' />
@@ -115,16 +159,19 @@ const form = (data, onSubmit) => {
                   name="additionalInformation"
                     autoComplete="info"
                     margin="normal"
+                    onChange={handleChange}
+                value={inputs.additionalInformation}
                 />
             </FormControl>
 
-            <Button  sx={labelSx} variant='contained'>Submit</Button>
+            <Button  type="submit" sx={labelSx} variant='contained'>Submit Application</Button>
             
 
             
         </Box>
 
-    </form>;
+    </form>
+    )
 };
 
 export default form

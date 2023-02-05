@@ -15,9 +15,7 @@ const Header = () => {
 
         if (val == 0) {
             router.push("/")
-        } else if (val == 1) {
-            router.push("/jobsAvailable")
-        } else if (val === 2) {
+        } else if (val === 1) {
             router.push("/jobsAvailable/moreJobs")
         }
     };
@@ -31,8 +29,8 @@ const Header = () => {
                     
                     <Tabs onChange={handleChange} value={value} textColor="inherit">
                         <Tab label="Home" />
-                        <Tab label="Job Application Hub" />
-                        <Tab label="More Jobs" />
+                        
+                        <Tab label="Job Application Form" />
                     </Tabs>
                 </Box>
         </Toolbar>
