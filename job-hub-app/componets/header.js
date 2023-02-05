@@ -17,11 +17,13 @@ const Header = () => {
             router.push("/")
         } else if (val == 1) {
             router.push("/jobsAvailable")
+        } else if (val === 2) {
+            router.push("/jobsAvailable/moreJobs")
         }
     };
     
     return (
-        <AppBar sx={{bgcolor:"#c83576"}}>
+        <AppBar position="sticky" sx={{bgcolor:"#c83576"}}>
             <Toolbar>
                 <HubIcon sx={{ color: 'inherit', fontSize: '5rem' }} />
                 
@@ -30,6 +32,7 @@ const Header = () => {
                     <Tabs onChange={handleChange} value={value} textColor="inherit">
                         <Tab label="Home" />
                         <Tab label="Job Application Hub" />
+                        <Tab label="More Jobs" />
                     </Tabs>
                 </Box>
         </Toolbar>
